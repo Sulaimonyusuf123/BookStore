@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useAuth } from "./../Components/Auth"; // Fixed import path
+import { useAuth } from "./../Components/Auth";
 import axios from "axios";
 
 const AddEditBook = () => {
@@ -20,11 +20,11 @@ const AddEditBook = () => {
     if (id) {
       const fetchBook = async () => {
         try {
-          const response = await axios.get(`https://api.example.com/books/${id}`);
-          setFormData(response.data);
+          const response = await axios.get(`http://localhost:3009/api/books/${id}`);
+          setFormData(response.data.data); // Backend returns { success: true, data: book }
         } catch (error) {
           console.error("Error fetching book:", error);
-          setFormError("Failed to load book data.");
+          setFormError(error.response?.data?.message || "Failed to load book data.");
         }
       };
       fetchBook();
@@ -47,26 +47,27 @@ const AddEditBook = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormError("");
-    // Basic client-side validation
+    // Client-side validation
     if (formData.price <= 0) {
       setFormError("Price must be positive.");
       return;
     }
     try {
       if (id) {
-        await axios.put(`https://api.example.com/books/${id}`, formData);
+        await axios.put(`http://localhost:3009/api/books/${id}`, formData);
       } else {
-        await axios.post("https://api.example.com/books", formData);
+        await axios.post("http://localhost:3009/api/books", formData);
       }
       navigate("/");
     } catch (error) {
       console.error("Error saving book:", error);
-      setFormError("Failed to save book. Please try again.");
+      setFormError(error.response?.data?.message || "Failed to save book. Please try again.");
     }
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: name === "price" ? parseFloat(value) || "" : value });
   };
 
   return (

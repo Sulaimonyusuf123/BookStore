@@ -3,7 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 const connectDB = require("./database/Database.js");
 const cors = require("cors");
-const Routes = require("./Routes/UserRoutes.js");
+const router = require("./Routes/UserRoutes.js");
 // const Route = require('./Routes/AdminRoutes.js')
 
 dotenv.config();
@@ -21,7 +21,7 @@ app.use(
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
-app.use(Routes);
+app.use('/api/books', router);
 // app.use(Route)
 
 
