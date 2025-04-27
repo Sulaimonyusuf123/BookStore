@@ -21,7 +21,7 @@ const AddEditBook = () => {
       const fetchBook = async () => {
         try {
           const response = await axios.get(`http://localhost:3009/api/books/${id}`);
-          setFormData(response.data.data); // Backend returns { success: true, data: book }
+          setFormData(response.data.data); 
         } catch (error) {
           console.error("Error fetching book:", error);
           setFormError(error.response?.data?.message || "Failed to load book data.");
@@ -55,10 +55,21 @@ const AddEditBook = () => {
     try {
       if (id) {
         await axios.put(`http://localhost:3009/api/books/${id}`, formData);
+        navigate("/", { 
+          state: { 
+            editSuccess: true, 
+            message: `"${formData.title}" has been updated successfully!` 
+          } 
+        });
       } else {
         await axios.post("http://localhost:3009/api/books", formData);
+        navigate("/", { 
+          state: { 
+            addSuccess: true, 
+            message: `"${formData.title}" has been added successfully!` 
+          } 
+        });
       }
-      navigate("/");
     } catch (error) {
       console.error("Error saving book:", error);
       setFormError(error.response?.data?.message || "Failed to save book. Please try again.");

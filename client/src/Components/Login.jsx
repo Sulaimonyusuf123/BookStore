@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     setError("");
     if (login(username, password)) {
-      navigate("/"); // Redirect to homepage on success
+      navigate("/"); 
     } else {
       setError("Invalid username or password");
     }
