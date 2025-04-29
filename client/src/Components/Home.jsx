@@ -7,7 +7,7 @@ import axios from "axios";
 const API_BASE_URL = "https://bookstore-api-hvgt.onrender.com/api/books";
 const api = axios.create({
   baseURL: API_BASE_URL,
-  withCredentials: true,
+  withCredentials: false, // Explicitly disable credentials
 });
 
 // Modal component for delete confirmation
@@ -94,7 +94,7 @@ const BookCard = ({ book, onDelete }) => {
 
   const handleDelete = async () => {
     try {
-      await api.delete(`/${book._id}`);
+      await api.delete(`/${book._id}`, { withCredentials: false });
       onDelete(book._id);
     } catch (error) {
       alert(`Failed to delete book: ${error.response?.data?.message || error.message}`);
@@ -182,7 +182,7 @@ const Home = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await api.get("/");
+        const response = await api.get("/", { withCredentials: false });
 
         if (response.data && response.data.success) {
           setBooks(response.data.data);

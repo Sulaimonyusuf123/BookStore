@@ -3,6 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "./../Components/Auth";
 import axios from "axios";
 
+// Configure axios globally to not send credentials
+axios.defaults.withCredentials = false;
+
 const AddEditBook = () => {
   const { id } = useParams();
   const { user, loading } = useAuth();
@@ -20,7 +23,9 @@ const AddEditBook = () => {
     if (id) {
       const fetchBook = async () => {
         try {
-          const response = await axios.get(`https://bookstore-api-hvgt.onrender.com/api/books/${id}`);
+          const response = await axios.get(`https://bookstore-api-hvgt.onrender.com/api/books/${id}`, {
+            withCredentials: false
+          });
           setFormData(response.data.data); 
         } catch (error) {
           console.error("Error fetching book:", error);
@@ -54,7 +59,9 @@ const AddEditBook = () => {
     }
     try {
       if (id) {
-        await axios.put(`https://bookstore-api-hvgt.onrender.com/api/books/${id}`, formData);
+        await axios.put(`https://bookstore-api-hvgt.onrender.com/api/books/${id}`, formData, {
+          withCredentials: false
+        });
         navigate("/", { 
           state: { 
             editSuccess: true, 
@@ -62,7 +69,9 @@ const AddEditBook = () => {
           } 
         });
       } else {
-        await axios.post("https://bookstore-api-hvgt.onrender.com/api/books", formData);
+        await axios.post("https://bookstore-api-hvgt.onrender.com/api/books", formData, {
+          withCredentials: false
+        });
         navigate("/", { 
           state: { 
             addSuccess: true, 

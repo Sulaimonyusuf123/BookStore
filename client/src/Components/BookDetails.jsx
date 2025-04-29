@@ -3,6 +3,9 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { Helmet } from "react-helmet"; 
 
+// Configure axios for this component
+axios.defaults.withCredentials = false;
+
 const BookDetail = () => {
   const { id } = useParams();
   const [book, setBook] = useState(null);
@@ -12,7 +15,9 @@ const BookDetail = () => {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const response = await axios.get(`https://bookstore-api-hvgt.onrender.com/api/books/${id}`);
+        const response = await axios.get(`https://bookstore-api-hvgt.onrender.com/api/books/${id}`, {
+          withCredentials: false
+        });
         setBook(response.data.data);
         document.title = response.data.data.title || "Book Details"; 
       } catch (error) {
