@@ -1,26 +1,9 @@
 services:
-  # Backend service - using free tier
   - type: web
-    name: medical-appointment-api
+    name: bookstore-api
     env: node
     plan: free
     buildCommand: cd server && npm install
     startCommand: cd server && node app.js
-    repo: https://github.com/Sulaimonyusuf123/BookStore # Replace with your actual repository
+    repo: https://github.com/Sulaimonyusuf123/BookStore
     branch: master
-    envVars:
-      - key: NODE_ENV
-        value: production
-
-  # Frontend service
-  - type: web
-    name: medical-appointment-client
-    env: static
-    buildCommand: cd client && npm install && npm run build
-    staticPublishPath: client/dist # Adjust if your build outputs to a different folder
-    repo: https://github.com/Sulaimonyusuf123/BookStore # Replace with your actual repository
-    branch: master
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
