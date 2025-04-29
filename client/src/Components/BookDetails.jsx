@@ -12,7 +12,7 @@ const BookDetail = () => {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const response = await axios.get(`http://localhost:3009/api/books/${id}`);
+        const response = await axios.get(`https://bookstore-api-hvgt.onrender.com/api/books/${id}`);
         setBook(response.data.data);
         document.title = response.data.data.title || "Book Details"; 
       } catch (error) {

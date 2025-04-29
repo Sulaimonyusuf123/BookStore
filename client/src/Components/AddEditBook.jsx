@@ -20,7 +20,7 @@ const AddEditBook = () => {
     if (id) {
       const fetchBook = async () => {
         try {
-          const response = await axios.get(`http://localhost:3009/api/books/${id}`);
+          const response = await axios.get(`https://bookstore-api-hvgt.onrender.com/api/books/${id}`);
           setFormData(response.data.data); 
         } catch (error) {
           console.error("Error fetching book:", error);
@@ -54,7 +54,7 @@ const AddEditBook = () => {
     }
     try {
       if (id) {
-        await axios.put(`http://localhost:3009/api/books/${id}`, formData);
+        await axios.put(`https://bookstore-api-hvgt.onrender.com/api/books/${id}`, formData);
         navigate("/", { 
           state: { 
             editSuccess: true, 
@@ -62,7 +62,7 @@ const AddEditBook = () => {
           } 
         });
       } else {
-        await axios.post("http://localhost:3009/api/books", formData);
+        await axios.post("https://bookstore-api-hvgt.onrender.com/api/books", formData);
         navigate("/", { 
           state: { 
             addSuccess: true, 
