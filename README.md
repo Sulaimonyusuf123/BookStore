@@ -34,7 +34,7 @@ A responsive React application for browsing and viewing book details. This appli
 Before you begin, ensure you have the following installed:
 - Node.js (v14.0.0 or later)
 - npm or yarn
-- MongoDB/MySQL/PostgreSQL (depending on your database choice)
+- MongoDB
 
 ## Installation
 
