@@ -2,16 +2,32 @@ const Book = require('../Model/BookModel');
 const mongoose = require('mongoose');
 
 
-// Get all books
+// Get all books with pagination
 exports.getAllBooks = async (req, res) => {
   try {
-    const books = await Book.find();
+    // Parse query parameters with defaults
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 20;
+    const skip = (page - 1) * limit;
+    
+    // Execute query with pagination
+    const books = await Book.find()
+      .limit(limit)
+      .skip(skip)
+      .lean(); // Use lean() for better performance when you don't need Mongoose document methods
+    
+    // Get total count for pagination info
+    const total = await Book.countDocuments();
+    
     res.status(200).json({
       success: true,
       count: books.length,
+      totalPages: Math.ceil(total / limit),
+      currentPage: page,
       data: books
     });
   } catch (error) {
+    console.error('Error fetching books:', error);
     res.status(500).json({
       success: false,
       message: 'Failed to fetch books',
