@@ -7,7 +7,7 @@ import axios from "axios";
 const API_BASE_URL = "https://bookstore-api-hvgt.onrender.com/api/books";
 const api = axios.create({
   baseURL: API_BASE_URL,
-  withCredentials: false, // Explicitly disable credentials
+  // Explicitly disable credentials
 });
 
 // Modal component for delete confirmation

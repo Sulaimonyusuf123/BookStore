@@ -4,7 +4,7 @@ import { useAuth } from "./../Components/Auth";
 import axios from "axios";
 
 // Configure axios globally to not send credentials
-axios.defaults.withCredentials = false;
+
 
 const AddEditBook = () => {
   const { id } = useParams();
@@ -24,7 +24,7 @@ const AddEditBook = () => {
       const fetchBook = async () => {
         try {
           const response = await axios.get(`https://bookstore-api-hvgt.onrender.com/api/books/${id}`, {
-            withCredentials: false
+            
           });
           setFormData(response.data.data); 
         } catch (error) {

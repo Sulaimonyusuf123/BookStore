@@ -4,7 +4,7 @@ import axios from "axios";
 import { Helmet } from "react-helmet"; 
 
 // Configure axios for this component
-axios.defaults.withCredentials = false;
+
 
 const BookDetail = () => {
   const { id } = useParams();
@@ -16,7 +16,7 @@ const BookDetail = () => {
     const fetchBook = async () => {
       try {
         const response = await axios.get(`https://bookstore-api-hvgt.onrender.com/api/books/${id}`, {
-          withCredentials: false
+          
         });
         setBook(response.data.data);
         document.title = response.data.data.title || "Book Details"; 
