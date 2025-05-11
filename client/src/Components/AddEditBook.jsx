@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "./../Components/Auth";
 import axios from "axios";
 
-// Configure axios globally to not send credentials
+
 
 
 const AddEditBook = () => {
